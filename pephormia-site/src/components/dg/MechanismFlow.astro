@@ -1,0 +1,28 @@
+---
+const { caption = "Solid arrows = what studies measured. Dashed = the leap marketing makes." } = Astro.props;
+---
+<figure class="dg">
+  <svg viewBox="0 0 460 250" role="img" aria-label={caption}>
+    <rect x="24" y="98" width="128" height="54" rx="10" fill="rgba(76,107,255,.12)" stroke="#4C6BFF" stroke-width="2"/>
+    <text x="88" y="122" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="14" fill="#9FB3FF" text-anchor="middle">GHK-Cu</text>
+    <text x="88" y="140" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#9AA1AE" text-anchor="middle">Cu carrier + signal</text>
+    <g stroke="#6D86FF" stroke-width="2" fill="none">
+      <path d="M152 116 C 200 84, 236 70, 288 66" marker-end="url(#m)"/>
+      <path d="M152 125 C 200 125, 236 122, 288 120" marker-end="url(#m)"/>
+      <path d="M152 134 C 200 168, 236 178, 288 176" marker-end="url(#m)"/>
+    </g>
+    <path d="M300 210 C 340 210, 360 208, 392 206" stroke="#D68A4E" stroke-width="1.8" stroke-dasharray="5 5" fill="none" marker-end="url(#mc)"/>
+    <g font-family="'IBM Plex Mono',monospace" font-size="10" fill="#ECEEF2">
+      <rect x="288" y="52" width="150" height="28" rx="6" fill="#12151B" stroke="#2A2F3A"/><text x="300" y="70">collagen synthesis ↑</text>
+      <rect x="288" y="106" width="150" height="28" rx="6" fill="#12151B" stroke="#2A2F3A"/><text x="300" y="124">lysyl-oxidase cofactor</text>
+      <rect x="288" y="162" width="150" height="28" rx="6" fill="#12151B" stroke="#2A2F3A"/><text x="300" y="180">MMP / TIMP balance</text>
+      <rect x="288" y="196" width="150" height="24" rx="6" fill="rgba(224,169,59,.14)" stroke="#E0A93B"/><text x="300" y="212" fill="#E0A93B">"reverses ageing"</text>
+    </g>
+    <text x="150" y="40" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6B7280">measured in cell / animal models</text>
+    <defs>
+      <marker id="m" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#6D86FF"/></marker>
+      <marker id="mc" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D68A4E"/></marker>
+    </defs>
+  </svg>
+  <figcaption>{caption}</figcaption>
+</figure>

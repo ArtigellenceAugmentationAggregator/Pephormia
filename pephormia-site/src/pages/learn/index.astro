@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+const buckets = [
+  ['Sleep','DSIP, melatonin, glycine'],['Energy & fatigue','MOTS-c, creatine, CoQ10'],
+  ['Metabolism & weight','GLP-1 class, MOTS-c'],['Hormones','DHEA, thyroid, GH axis'],
+  ['Recovery & repair','BPC-157, TB-500, GHK-Cu'],['Focus & cognition','Semax, Selank'],
+  ['Mood & stress','Selank, DSIP'],['Longevity','Epitalon, NAD⁺, GHK'],['Skin & hair','GHK-Cu, Matrixyl-class'],
+];
+---
+<Base title="Learn — PEPHORMIA" description="Graded, cited dossiers on peptides and hormones, organised by goal.">
+  <section class="pad">
+    <div class="wrap">
+      <span class="eyebrow">Learn</span>
+      <h2>Every compound, <em>graded and cited.</em></h2>
+      <p class="sub">Organised by what you're trying to optimise. Each dossier gives the mechanism, the human evidence, the tier, and the honest "doesn't show" line.</p>
+      <div class="bgrid">
+        {buckets.map(([b,ex]) => (
+          <div class="b"><h3>{b}</h3><span class="ex">{ex}</span><span class="soon">Dossiers publishing weekly</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+  .b{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px}
+  .b .ex{display:block;font-family:var(--font-mono);font-size:11px;color:var(--soft-2);margin-top:8px}
+  .b .soon{display:block;font-size:12px;color:var(--green);margin-top:14px}
+  @media(max-width:820px){.bgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.bgrid{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,38 @@
+---
+import Mark from './Mark.astro';
+---
+<section class="disc">
+  <div class="wrap">
+    <p><b>Educational purpose only.</b> PEPHORMIA aggregates and grades published scientific literature. Nothing here is medical advice, diagnosis, or treatment, and nothing here is a recommendation to obtain, dose, or use any compound. We do not sell, supply, or facilitate access to prescription medicines or injectable peptides. Products offered are cosmetic-grade topical formulations described by appearance only. Peptide and hormone use carries real risks — consult a qualified healthcare professional before any decision. Statements have not been evaluated by the TGA or FDA.</p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><Mark size={28} /><span class="wm">PEPHORMIA</span></a>
+        <p class="tagline">The realm of peptides &amp; hormones. Graded, cited, compliant. An Artigellence property.</p>
+      </div>
+      <div class="col"><h4>Platform</h4><a href="/learn/">Learn</a><a href="/library/">Library</a><a href="/shop/">Shop</a><a href="/blog/">Blog</a><a href="/#briefing">Subscribe</a></div>
+      <div class="col"><h4>Contact</h4><a href="mailto:raj@artigellence.com">raj@artigellence.com</a><a href="tel:+61469313323">+61 469 313 323</a><span>Sydney, Australia</span><span>Artigellence — Augmentation Aggregator</span></div>
+    </div>
+    <div class="foot-base"><span>© 2026 ARTIGELLENCE · ALL RIGHTS RESERVED</span><span>PEPHORMIA.COM · AGGREGATOR, NOT GENERATOR</span></div>
+  </div>
+</footer>
+<style>
+  .disc{background:var(--bg);border-top:1px solid var(--line)}
+  .disc .wrap{padding:30px 32px}
+  .disc p{font-family:var(--font-mono);font-size:12px;line-height:1.9;color:var(--soft-2);max-width:98ch}
+  .disc p b{color:var(--soft)}
+  footer{background:var(--bg-2);border-top:1px solid var(--line)}
+  footer .wrap{padding:52px 32px 58px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:34px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand .wm{font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--cream)}
+  .tagline{color:var(--soft-2);font-size:14px;max-width:34ch;margin-top:12px}
+  footer h4{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft-2);margin-bottom:14px}
+  footer .col a,footer .col span{display:block;color:var(--soft);font-size:14.5px;margin-bottom:9px}
+  footer .col a:hover{color:var(--cream)}
+  .foot-base{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;color:var(--soft-2)}
+  @media(max-width:720px){.foot-grid{grid-template-columns:1fr}}
+</style>

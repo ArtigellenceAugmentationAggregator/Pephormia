@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog', p => !p.data.draft))
+  .sort((a,b)=> b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="Blog — PEPHORMIA" description="Graded, cited writing on peptides and hormones across the whole system.">
+  <section class="pad">
+    <div class="wrap">
+      <span class="eyebrow">The blog</span>
+      <h2>The science, <em>decoded weekly.</em></h2>
+      <p class="sub">Long-form, cited, and honest about limits. Every article grades its claims.</p>
+      <div class="post-grid">
+        {posts.map(p => (
+          <a class="post" href={`/blog/${p.slug}/`}>
+            <span class="meta">{p.data.bucket} · {p.data.readMins} min · {p.data.sources} sources</span>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            <span class="rd">Read →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:34px}
+  .post{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;display:flex;flex-direction:column;gap:8px}
+  .post:hover{border-color:var(--accent);text-decoration:none;box-shadow:0 16px 40px -30px rgba(31,59,255,.4)}
+  .post .meta{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft-2)}
+  .post p{color:var(--soft);font-size:14px;flex:1}
+  .post .rd{color:var(--accent);font-weight:600;font-size:14px}
+  @media(max-width:720px){.post-grid{grid-template-columns:1fr}}
+</style>

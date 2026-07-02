@@ -1,0 +1,6 @@
+---
+// tier: 'strong' | 'human' | 'weak' | 'mech'
+const { tier = 'mech', label } = Astro.props;
+const text = label ?? { strong:'Strong', human:'Human', weak:'Weak', mech:'Mechanistic' }[tier];
+---
+<span class={`tier ${tier}`}>{text}</span>

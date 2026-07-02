@@ -1,0 +1,18 @@
+---
+const { caption = "The four tiers — most peptide claims live near the base" } = Astro.props;
+---
+<figure class="dg">
+  <svg viewBox="0 0 380 250" role="img" aria-label={caption}>
+    <polygon points="190,16 236,74 144,74" fill="#22C58B"/>
+    <polygon points="140,80 240,80 266,140 114,140" fill="#4C6BFF"/>
+    <polygon points="110,146 270,146 296,206 84,206" fill="#E0A93B"/>
+    <polygon points="80,212 300,212 300,236 80,236" fill="#8891A0"/>
+    <g font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#0B0D10" text-anchor="middle" letter-spacing="1" font-weight="500">
+      <text x="190" y="60">STRONG</text><text x="190" y="115">HUMAN</text><text x="190" y="182">WEAK</text><text x="190" y="228" font-size="9">MECHANISTIC</text>
+    </g>
+    <g font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#6B7280">
+      <text x="312" y="46">▲ more certain</text><text x="312" y="226">most claims</text>
+    </g>
+  </svg>
+  <figcaption>{caption}</figcaption>
+</figure>

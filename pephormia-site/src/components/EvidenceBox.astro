@@ -1,0 +1,15 @@
+---
+import Tier from './Tier.astro';
+// props: title, tier, tierLabel, finding, source, doesntShow
+const { title, tier = 'mech', tierLabel, finding, source, doesntShow } = Astro.props;
+---
+<div class="evidence">
+  <div class="spine"></div>
+  <div class="ev-head">
+    <span class="ev-title">{title}</span>
+    <Tier tier={tier} label={tierLabel} />
+  </div>
+  <div class="row"><div class="rk">Finding</div><div class="rv"><slot name="finding">{finding}</slot></div></div>
+  <div class="row"><div class="rk">Source</div><div class="rv ref"><slot name="source">{source}</slot></div></div>
+  <div class="row"><div class="rk">Doesn't show</div><div class="rv neg"><slot name="doesnt">{doesntShow}</slot></div></div>
+</div>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pephormia.com/sitemap-index.xml

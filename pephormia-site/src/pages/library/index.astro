@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const items = (await getCollection('library', i => !i.data.draft))
+  .sort((a,b)=> b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="Library — PEPHORMIA" description="Cited educational downloads: evidence reviews, guides and trackers, every claim traced to primary literature.">
+  <section class="pad">
+    <div class="wrap">
+      <span class="eyebrow">The library</span>
+      <h2>Cited downloads, <em>done to depth.</em></h2>
+      <p class="sub">Not overviews. Full mechanism maps, graded claims, verified citations, buyer-actionable summaries.</p>
+      <div class="lib-grid">
+        {items.map(i => (
+          <div class="lib">
+            <div class="ic"><span class="k">{i.data.kind.replace('-',' ')}</span><span class={i.data.price==='Free'?'free':'price'}>{i.data.price}</span></div>
+            <h3>{i.data.title}</h3>
+            <p>{i.data.description}</p>
+            <div class="specs">{i.data.pages}-page · {i.data.sources} sources</div>
+            {i.data.pdf
+              ? <a class="btn" href={i.data.pdf}>Download →</a>
+              : <a class="btn ghost" href="/#briefing">Subscribe to unlock</a>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .lib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:34px}
+  .lib{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;display:flex;flex-direction:column;gap:10px}
+  .lib .ic{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft-2)}
+  .lib .free{color:var(--green)} .lib .price{color:var(--accent)}
+  .lib p{color:var(--soft);font-size:14px;flex:1}
+  .lib .specs{font-family:var(--font-mono);font-size:11px;color:var(--soft-2)}
+  .lib .btn{align-self:flex-start;margin-top:6px}
+  @media(max-width:720px){.lib-grid{grid-template-columns:1fr}}
+</style>
