@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { banks } from '../../data/banks';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', p => !p.data.draft);
+  const items = await getCollection('library', i => !i.data.draft);
+  return banks.map(bank => {
+    const dossiers = items.filter(i => bank.contentBuckets.includes(i.data.bucket));
+    const articles = posts.filter(p => bank.contentBuckets.includes(p.data.bucket));
+    return { params: { bucket: bank.slug }, props: { bank, dossiers, articles } };
+  });
+}
+const { bank, dossiers, articles } = Astro.props;
+const hasWriteups = dossiers.length + articles.length > 0;
+const papers = bank.refs.filter(r => r.kind === 'paper');
+const regs = bank.refs.filter(r => r.kind === 'regulatory');
+---
+<Base title={`${bank.title} — PEPHORMIA`} description={bank.tagline}>
+  <section class="pad">
+    <div class="wrap">
+      <div class="coord"><span>SYS · LEARN / {bank.title.toUpperCase()}</span><span class="r"><a href="/learn/">← ALL GOALS</a></span></div>
+      <span class="eyebrow">Information bank</span>
+      <h1 style="margin:12px 0 10px">{bank.title}</h1>
+      <p class="sub" style="font-size:19px">{bank.tagline}</p>
+      <p class="compounds">{bank.compounds}</p>
+
+      <!-- OUR WRITEUPS -->
+      <div class="block">
+        <div class="block-head"><h2>Our writeups</h2><span class="count">{dossiers.length + articles.length}</span></div>
+        {hasWriteups ? (
+          <div class="grid2">
+            {dossiers.map(i => (
+              <a class="wcard" href={i.data.pdf ?? '/#briefing'}>
+                <span class="k">{i.data.kind.replace('-',' ')} · {i.data.price}</span>
+                <h3>{i.data.title}</h3>
+                <p>{i.data.description}</p>
+                <span class="rd">{i.data.pdf ? 'Download →' : 'Subscribe to unlock →'}</span>
+              </a>
+            ))}
+            {articles.map(p => (
+              <a class="wcard" href={`/blog/${p.slug}/`}>
+                <span class="k">article · {p.data.readMins} min · {p.data.sources} sources</span>
+                <h3>{p.data.title}</h3>
+                <p>{p.data.description}</p>
+                <span class="rd">Read →</span>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div class="empty">
+            <p>Graded dossiers for {bank.title.toLowerCase()} are in production. The primary papers and regulatory reads are below now — our writeups land on top as they publish.</p>
+            <a class="btn" href="/#briefing">Get them first →</a>
+          </div>
+        )}
+      </div>
+
+      <!-- PRIMARY PAPERS -->
+      {papers.length > 0 && (
+        <div class="block">
+          <div class="block-head"><h2>Primary papers</h2><span class="count">{papers.length}</span></div>
+          <div class="reflist">
+            {papers.map(r => (
+              <a class="ref" href={r.href} target="_blank" rel="noopener noreferrer">
+                <div class="ref-main">
+                  <div class="ref-title">{r.title}</div>
+                  <div class="ref-meta">{r.meta}</div>
+                  {r.note && <div class="ref-note">Doesn't show: {r.note}</div>}
+                </div>
+                <div class="ref-side">
+                  {r.tier && <span class={`tier ${r.tier}`}>{r.tier}</span>}
+                  <span class="ref-go">↗</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- REGULATORY -->
+      {regs.length > 0 && (
+        <div class="block">
+          <div class="block-head"><h2>Regulatory</h2><span class="count">{regs.length}</span></div>
+          <div class="reflist">
+            {regs.map(r => (
+              <a class="ref reg" href={r.href} target="_blank" rel="noopener noreferrer">
+                <div class="ref-main">
+                  <div class="ref-title">{r.title}</div>
+                  <div class="ref-meta">{r.meta}</div>
+                  {r.note && <div class="ref-note reg-note">{r.note}</div>}
+                </div>
+                <div class="ref-side"><span class="reg-chip">official</span><span class="ref-go">↗</span></div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .compounds{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--soft-2);margin-top:12px}
+  .block{margin-top:48px}
+  .block-head{display:flex;align-items:center;gap:12px;padding-bottom:14px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+  .block-head h2{font-size:22px}
+  .count{font-family:var(--font-mono);font-size:11px;color:var(--soft-2);border:1px solid var(--line-2);border-radius:20px;padding:2px 9px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .wcard{background:var(--bg-2);border:1px solid var(--line);border-top:2px solid var(--accent);border-radius:0 0 var(--r) var(--r);padding:20px 20px 22px;display:flex;flex-direction:column;gap:7px}
+  .wcard:hover{background:var(--bg-3);text-decoration:none;transform:translateY(-2px);transition:.16s}
+  .wcard .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft-2)}
+  .wcard p{color:var(--soft);font-size:13.5px;flex:1}
+  .wcard .rd{color:var(--accent-2);font-weight:600;font-size:13.5px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+
+  .empty{background:var(--bg-2);border:1px dashed var(--line-2);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+  .empty p{color:var(--soft);max-width:60ch;font-size:14.5px}
+
+  .reflist{display:flex;flex-direction:column;gap:10px}
+  .ref{display:flex;justify-content:space-between;align-items:center;gap:18px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:16px 18px}
+  .ref:hover{background:var(--bg-3);border-color:var(--line-2);text-decoration:none}
+  .ref.reg{border-left:3px solid var(--green)}
+  .ref-title{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--cream);line-height:1.3}
+  .ref-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--soft);margin-top:5px}
+  .ref-note{font-size:12.5px;color:var(--flag);margin-top:7px;line-height:1.45}
+  .ref-note.reg-note{color:var(--soft-2)}
+  .ref-side{display:flex;align-items:center;gap:12px;flex:none}
+  .ref-go{color:var(--soft-2);font-size:16px}
+  .reg-chip{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);background:var(--mint);border-radius:5px;padding:4px 8px}
+  @media(max-width:600px){.ref{flex-direction:column;align-items:flex-start;gap:10px}}
+</style>

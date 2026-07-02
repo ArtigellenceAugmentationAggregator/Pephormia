@@ -1,21 +1,22 @@
 ---
 import Base from '../../layouts/Base.astro';
-const buckets = [
-  ['Sleep','DSIP, melatonin, glycine'],['Energy & fatigue','MOTS-c, creatine, CoQ10'],
-  ['Metabolism & weight','GLP-1 class, MOTS-c'],['Hormones','DHEA, thyroid, GH axis'],
-  ['Recovery & repair','BPC-157, TB-500, GHK-Cu'],['Focus & cognition','Semax, Selank'],
-  ['Mood & stress','Selank, DSIP'],['Longevity','Epitalon, NAD⁺, GHK'],['Skin & hair','GHK-Cu, Matrixyl-class'],
-];
+import { banks } from '../../data/banks';
 ---
-<Base title="Learn — PEPHORMIA" description="Graded, cited dossiers on peptides and hormones, organised by goal.">
+<Base title="Learn — PEPHORMIA" description="Graded, cited dossiers on peptides and hormones, organised by goal. Each bucket opens an information bank of writeups, primary papers and regulatory reads.">
   <section class="pad">
     <div class="wrap">
+      <div class="coord"><span>SYS · LEARN / INDEX</span><span class="r">THE INFORMATION BANK</span></div>
       <span class="eyebrow">Learn</span>
-      <h2>Every compound, <em>graded and cited.</em></h2>
-      <p class="sub">Organised by what you're trying to optimise. Each dossier gives the mechanism, the human evidence, the tier, and the honest "doesn't show" line.</p>
+      <h2 style="margin-top:12px">Every compound, <em>graded and cited.</em></h2>
+      <p class="sub">Organised by what you're trying to optimise. Each goal opens a bank: our writeups on top, the primary papers and FDA/TGA reads beneath.</p>
       <div class="bgrid">
-        {buckets.map(([b,ex]) => (
-          <div class="b"><h3>{b}</h3><span class="ex">{ex}</span><span class="soon">Dossiers publishing weekly</span></div>
+        {banks.map(b => (
+          <a class="b" href={`/learn/${b.slug}/`}>
+            <span class="dot"></span>
+            <h3>{b.title}</h3>
+            <span class="ex">{b.compounds}</span>
+            <span class="go">{b.refs.length} sources · open bank →</span>
+          </a>
         ))}
       </div>
     </div>
@@ -23,9 +24,11 @@ const buckets = [
 </Base>
 <style>
   .bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
-  .b{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px}
-  .b .ex{display:block;font-family:var(--font-mono);font-size:11px;color:var(--soft-2);margin-top:8px}
-  .b .soon{display:block;font-size:12px;color:var(--green);margin-top:14px}
+  .b{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px;display:flex;flex-direction:column;gap:6px;transition:.16s}
+  .b:hover{border-color:var(--accent);background:var(--bg-3);transform:translateY(-2px);text-decoration:none}
+  .b .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--accent),var(--green));margin-bottom:8px}
+  .b .ex{font-family:var(--font-mono);font-size:11px;color:var(--soft-2)}
+  .b .go{font-family:var(--font-mono);font-size:11px;color:var(--accent-2);margin-top:12px}
   @media(max-width:820px){.bgrid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.bgrid{grid-template-columns:1fr}}
 </style>
