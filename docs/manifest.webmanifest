@@ -1,0 +1,12 @@
+{
+  "name": "PEPHORMIA — Peptides & Hormones, decoded",
+  "short_name": "PEPHORMIA",
+  "description": "Graded, cited education on peptides and hormones. Aggregator, not generator.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F6F8",
+  "theme_color": "#1F3BFF",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
