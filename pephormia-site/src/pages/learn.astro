@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const hubs = [
+  ['01','Sleep','Peptides & hormones studied for sleep quality and recovery cycles.'],
+  ['02','Energy','What the evidence says about fatigue, mitochondria and daily energy.'],
+  ['03','Metabolism','Body composition, appetite signalling and metabolic pathways.'],
+  ['04','Hormones','The endocrine picture — graded, sourced, honest about limits.'],
+  ['05','Recovery','Tissue repair, inflammation and post-training recovery evidence.'],
+  ['06','Focus','Cognition, clarity and the science behind the "brain fog" claims.'],
+  ['07','Mood','Stress, mood and the peptides studied around them.'],
+  ['08','Longevity','Ageing biology and the longevity claims, tiered by strength.'],
+  ['09','Skin & Hair','Topical peptides for the appearance of skin and hair.'],
+];
+---
+<BaseLayout title="Learn — PEPHORMIA" description="Nine evidence hubs across the whole peptide & hormone system, each graded and cited.">
+  <section class="wrap head">
+    <div class="eyebrow">LEARN / SYS.01</div>
+    <h1>Nine hubs. One honest standard.</h1>
+    <p class="sub">The whole peptide & hormone system, organised into nine evidence hubs. Every claim inside is graded
+      strong / human / weak / mechanistic and sourced to the primary literature — with the honest limits stated.</p>
+  </section>
+  <div class="wrap"><div class="rail"><span>PH.LEARN</span><span>09 HUBS</span><span>VERIFIED CITATIONS ONLY</span></div></div>
+  <section class="wrap grid">
+    {hubs.map(([n,name,desc]) => (
+      <a class="hub" href={`/learn/${name.toLowerCase().replace(/ & /g,'-').replace(/\s+/g,'-')}`}>
+        <span class="idx">{n}</span>
+        <h3>{name}</h3>
+        <p>{desc}</p>
+        <span class="go">Open hub →</span>
+      </a>
+    ))}
+  </section>
+  <style>
+    .head{padding:60px 0 22px;max-width:820px}
+    .head h1{font-size:40px;margin:12px 0 14px}
+    .head .sub{color:var(--muted);font-size:15px;max-width:64ch}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:26px}
+    .hub{background:var(--panel);padding:22px 20px 20px;transition:background .15s;display:flex;flex-direction:column;min-height:150px}
+    .hub:hover{background:var(--panel-2)}
+    .hub .idx{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.14em}
+    .hub h3{font-size:19px;margin:10px 0 6px}
+    .hub p{font-size:13px;color:var(--muted);flex:1}
+    .hub .go{font-family:var(--mono);font-size:11px;color:var(--cobalt);letter-spacing:.08em;margin-top:12px}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}.head h1{font-size:30px}}
+  </style>
+</BaseLayout>

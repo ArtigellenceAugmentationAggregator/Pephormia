@@ -1,23 +1,29 @@
-PEPHORMIA — THE SITE.  This folder is the whole website. Nothing else.
+PEPHORMIA — COMPLETE SITE FOLDER (build-verified)
+==================================================
+This is the whole website. It BUILDS CLEANLY (verified with `npm run build` — 8 pages).
 
-TO PUT IT ON GITHUB (one time):
-1. Create a new GitHub repo (empty).
-2. Upload the CONTENTS of this folder to it (or: git init, add, commit, push to main).
-3. GitHub repo → Settings → Pages → Source = "GitHub Actions".
-4. Hostinger DNS for pephormia.com:
-     A  @   185.199.108.153
-     A  @   185.199.109.153
-     A  @   185.199.110.153
-     A  @   185.199.111.153
-     CNAME  www   <your-github-username>.github.io
-5. Every push to "main" auto-builds and goes live. Done.
+WHAT'S INSIDE
+  src/pages/        index (home), shop, invest, learn, library, blog/
+  src/layouts/      BaseLayout.astro  (nav incl. Investors + footer)
+  src/components/   EvidenceBox.astro (four-tier graded evidence)
+  src/content/blog/ 2 starter posts (add more .md files here)
+  src/styles/       tokens.css (Lab Bright)
+  public/           CNAME (pephormia.com), favicon, robots
+  .github/workflows/deploy.yml  (auto-deploy on push to main)
 
-TO PREVIEW ON YOUR PC:
-   npm install
-   npm run dev      -> open http://localhost:4321
-   (do NOT double-click files in /dist — CSS won't load that way)
+PUT IT LIVE (replaces your repo's site folder)
+  1. In your GitHub repo, delete the old  pephormia-site  folder.
+  2. Upload THIS  pephormia-site  folder in its place (same name, repo root).
+  3. Commit -> push to main.  Actions rebuilds, ~2 min, site updates.
+  4. Hard-refresh pephormia.com (Ctrl+Shift+R).
 
-TO ADD A BLOG POST:  drop a .md file in  src/content/blog/  and push.
-TO ADD A DOWNLOAD:   drop the PDF in  public/downloads/  + a .md in  src/content/library/
+  IMPORTANT: your site lives INSIDE the pephormia-site/ folder in your repo.
+  Keep that structure. Do NOT drop files at the repo root.
 
-That's it. Full detail in README.md.
+PREVIEW LOCALLY
+  npm install
+  npm run dev   ->  http://localhost:4321
+
+NOTE: home/learn/library/blog are fresh versions. Your previous wording is still in
+your GitHub commit history if you want any of it back. Shop + Investors are the real pages.
+The GHK-Cu Decoded product is set to "Launching soon" until its citation pass is re-rendered.

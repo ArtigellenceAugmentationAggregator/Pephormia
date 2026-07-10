@@ -1,34 +1,27 @@
 ---
-import Base from '../../layouts/Base.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-export async function getStaticPaths(){
-  const posts = await getCollection('blog', p => !p.data.draft);
-  return posts.map(p => ({ params:{ slug:p.slug }, props:{ post:p } }));
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(p => ({ params: { slug: p.slug }, props: { post: p } }));
 }
 const { post } = Astro.props;
 const { Content } = await post.render();
-const d = post.data.date.toLocaleDateString('en-AU',{year:'numeric',month:'long',day:'numeric'});
 ---
-<Base title={`${post.data.title} — PEPHORMIA`} description={post.data.description}>
-  <article class="article">
-    <div class="wrap narrow">
-      <span class="eyebrow">{post.data.bucket}</span>
-      <h1>{post.data.title}</h1>
-      <p class="standfirst">{post.data.description}</p>
-      <div class="byline">{d} · {post.data.readMins} min read · {post.data.sources} sources</div>
-      <div class="prose"><Content /></div>
-    </div>
+<BaseLayout title={`${post.data.title} — PEPHORMIA`} description={post.data.description}>
+  <article class="wrap art">
+    <div class="eyebrow">{post.data.tag ?? 'Article'} · {post.data.date.toISOString().slice(0,10)}</div>
+    <h1>{post.data.title}</h1>
+    <div class="prose"><Content /></div>
+    <a class="back" href="/blog">← All posts</a>
   </article>
-</Base>
-<style>
-  .article{padding:64px 0 40px}
-  .narrow{max-width:720px}
-  .article h1{margin:14px 0 18px}
-  .standfirst{font-size:20px;color:var(--soft);line-height:1.5;margin-bottom:18px}
-  .byline{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft-2);padding-bottom:26px;border-bottom:1px solid var(--line);margin-bottom:34px}
-  .prose{font-size:18px;line-height:1.75;color:var(--cream)}
-  .prose :global(h2){font-family:var(--font-display);font-weight:600;font-size:26px;letter-spacing:-.02em;margin:38px 0 14px}
-  .prose :global(p){margin-bottom:20px}
-  .prose :global(strong){color:var(--cream)}
-  .prose :global(em){color:var(--accent);font-style:normal;font-weight:500}
-</style>
+  <style>
+    .art{max-width:720px;padding:56px 28px 0}
+    .art h1{font-size:34px;line-height:1.1;margin:12px 0 22px}
+    .prose{color:var(--text);font-size:15px}
+    .prose :global(p){margin:0 0 16px}
+    .prose :global(strong){color:#fff}
+    .prose :global(em){color:var(--muted)}
+    .back{display:inline-block;margin-top:24px;font-family:var(--mono);font-size:12px;color:var(--cobalt);letter-spacing:.08em}
+  </style>
+</BaseLayout>

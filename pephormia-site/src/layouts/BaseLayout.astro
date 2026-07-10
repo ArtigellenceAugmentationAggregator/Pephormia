@@ -1,0 +1,68 @@
+---
+import '../styles/tokens.css';
+const { title = 'PEPHORMIA', description = 'Whole-system peptide & hormone platform — graded, cited, honest.' } = Astro.props;
+const path = Astro.url.pathname;
+const on = (p) => path === p || (p !== '/' && path.startsWith(p)) ? 'active' : '';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    .nav{position:sticky;top:0;z-index:50;background:rgba(11,13,16,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav .row{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand .wm{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.05em;color:#fff}
+    .navlinks{display:flex;gap:24px;align-items:center}
+    .navlinks a{font-size:13px;color:var(--muted);transition:color .15s}
+    .navlinks a:hover,.navlinks a.active{color:#fff}
+    .navlinks a.invest{color:var(--cobalt);font-weight:600}
+    .foot{border-top:1px solid var(--line);margin-top:70px;padding:34px 0 46px}
+    .foot .cols{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+    .foot .mono{line-height:1.9}
+    .disc{border:1px solid var(--line);background:var(--panel);padding:16px 18px;margin-top:26px;font-size:12px;color:var(--muted);line-height:1.6}
+    .disc b{color:#fff}
+    @media(max-width:720px){.navlinks{gap:14px;font-size:12px}}
+  </style>
+</head>
+<body>
+  <nav class="nav"><div class="wrap"><div class="row">
+    <a class="brand" href="/">
+      <svg width="30" height="29" viewBox="0 0 80 76"><g transform="translate(8,8)">
+        <rect x="6" y="18" width="6" height="40" rx="3" fill="#1F3BFF"/>
+        <path d="M12 22 h9 a11 11 0 0 1 0 22 h-9 z" fill="none" stroke="#1F3BFF" stroke-width="6"/>
+        <rect x="40" y="8" width="6" height="50" rx="3" fill="#1F3BFF"/><rect x="58" y="8" width="6" height="50" rx="3" fill="#1F3BFF"/>
+        <rect x="46" y="30" width="12" height="6" rx="3" fill="#1F3BFF"/><circle cx="52" cy="33" r="5.5" fill="#00A67E"/>
+      </g></svg><span class="wm">PEPHORMIA</span></a>
+    <div class="navlinks">
+      <a href="/learn" class={on('/learn')}>Learn</a>
+      <a href="/library" class={on('/library')}>Library</a>
+      <a href="/shop" class={on('/shop')}>Shop</a>
+      <a href="/blog" class={on('/blog')}>Blog</a>
+      <a href="/invest" class={`invest ${on('/invest')}`}>Investors</a>
+    </div>
+  </div></div></nav>
+
+  <slot />
+
+  <footer class="foot"><div class="wrap">
+    <div class="cols">
+      <div class="mono">PEPHORMIA<br>AN ARTIGELLENCE VENTURE<br>SYDNEY · AU</div>
+      <div class="mono">LEARN · LIBRARY · SHOP<br>BLOG · INVESTORS<br>PEPHORMIA.COM</div>
+      <div class="mono">ABN 83 988 690 362<br>RAJ@ARTIGELLENCE.COM<br>+61 469 313 323</div>
+    </div>
+    <div class="disc">
+      <b>Compliance.</b> Topical products are cosmetic-grade, INCI-named, and described by appearance /
+      structure-function only — not injectable, not scheduled, no therapeutic or disease claims. Educational content
+      grades published evidence and is not medical advice. Prices in AUD, incl. GST.
+    </div>
+  </div></footer>
+</body>
+</html>

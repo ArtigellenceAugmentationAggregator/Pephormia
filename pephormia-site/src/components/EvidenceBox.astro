@@ -1,15 +1,24 @@
 ---
-import Tier from './Tier.astro';
-// props: title, tier, tierLabel, finding, source, doesntShow
-const { title, tier = 'mech', tierLabel, finding, source, doesntShow } = Astro.props;
+// The signature graded-evidence component. Tier: strong | human | weak | mechanistic
+const { tier = 'human', claim = '', note = '' } = Astro.props;
+const map = {
+  strong:      { c: 'var(--green)',  label: 'STRONG' },
+  human:       { c: 'var(--cobalt)', label: 'HUMAN' },
+  weak:        { c: 'var(--amber)',  label: 'WEAK' },
+  mechanistic: { c: 'var(--faint)',  label: 'MECHANISTIC' },
+};
+const t = map[tier] ?? map.human;
 ---
-<div class="evidence">
-  <div class="spine"></div>
-  <div class="ev-head">
-    <span class="ev-title">{title}</span>
-    <Tier tier={tier} label={tierLabel} />
+<div class="ebox" style={`--tier:${t.c}`}>
+  <span class="tag">{t.label}</span>
+  <div class="body">
+    <p class="claim">{claim}</p>
+    {note && <p class="note">{note}</p>}
   </div>
-  <div class="row"><div class="rk">Finding</div><div class="rv"><slot name="finding">{finding}</slot></div></div>
-  <div class="row"><div class="rk">Source</div><div class="rv ref"><slot name="source">{source}</slot></div></div>
-  <div class="row"><div class="rk">Doesn't show</div><div class="rv neg"><slot name="doesnt">{doesntShow}</slot></div></div>
 </div>
+<style>
+  .ebox{display:flex;gap:14px;border:1px solid var(--line);border-left:3px solid var(--tier);background:var(--panel);padding:14px 16px;margin:12px 0}
+  .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--tier);padding-top:2px;white-space:nowrap}
+  .claim{font-size:14px;color:var(--text)}
+  .note{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;line-height:1.5}
+</style>
